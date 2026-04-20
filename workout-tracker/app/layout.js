@@ -1,5 +1,6 @@
 // app/layout.js
 import './globals.css';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Workout Tracker',
@@ -10,7 +11,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="nl">
       <body>
-        {children}
+        <nav>
+          <Link href="/">Home</Link>
+          <Link href="/workouts">Workouts</Link>
+        </nav>
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );
