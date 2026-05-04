@@ -1,5 +1,6 @@
 // app/workouts/page.js
 import Link from 'next/link';
+import AddWorkoutForm from '../components/AddWorkoutForm';
 
 const workouts = [
   { id: 1, title: 'Push Day', reps: 10, load: 50 },
@@ -11,6 +12,7 @@ export default function WorkoutsPage() {
   return (
     <main>
       <h1>Mijn Workouts</h1>
+      <AddWorkoutForm />
       <ul>
         {workouts.map((workout) => (
           <li key={workout.id}>
