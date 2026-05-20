@@ -2,12 +2,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function AddWorkoutForm() {
   const [title, setTitle] = useState('');
   const [reps, setReps] = useState('');
   const [load, setLoad] = useState('');
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +33,8 @@ export default function AddWorkoutForm() {
     setTitle('');
     setReps('');
     setLoad('');
-  }
+    router.refresh();
+  } 
 
   return (
     <form onSubmit={handleSubmit}>

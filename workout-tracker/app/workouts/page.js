@@ -2,26 +2,42 @@
 import Link from 'next/link';
 import AddWorkoutForm from '../components/AddWorkoutForm';
 
-const workouts = [
-  { id: 1, title: 'Push Day', reps: 10, load: 50 },
-  { id: 2, title: 'Pull Day', reps: 8, load: 60 },
-  { id: 3, title: 'Leg Day', reps: 12, load: 80 },
-];
+async function getWorkouts() {
+  // Let op: volledige URL nodig in Server Components
+  const res = await fetch('http://localhost:3000/api/workouts', {
+    cache: 'no-store', // Altijd verse data ophalen
+  });
 
-export default function WorkoutsPage() {
+  if (!res.ok) {
+    throw new Error('Ophalen workouts mislukt');
+  }
+
+  return res.json();
+}
+
+export default async function WorkoutsPage() {
+  const workouts = await getWorkouts();
+
   return (
     <main>
       <h1>Mijn Workouts</h1>
+
       <AddWorkoutForm />
-      <ul>
-        {workouts.map((workout) => (
-          <li key={workout.id}>
-            <Link href={`/workouts/${workout.id}`}>
-              {workout.title} — {workout.reps} reps @ {workout.load}kg
-            </Link>
-          </li>
-        ))}
-      </ul>
+
+      {workouts.length === 0 ? (
+        <p>Nog geen workouts. Voeg er een toe!</p>
+      ) : (
+        <ul>
+          {workouts.map((workout) => (
+            <li key={workout._id}>
+              <Link href={`/workouts/${workout._id}`}>
+                <strong>{workout.title}</strong>
+              </Link>
+               — {workout.reps} reps @ {workout.load}kg
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
