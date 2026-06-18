@@ -12,6 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="nl">
       <body>
         <nav>
+          <Link href="/" className="nav-brand">WT</Link>
           <Link href="/">Home</Link>
           <Link href="/workouts">Workouts</Link>
         </nav>

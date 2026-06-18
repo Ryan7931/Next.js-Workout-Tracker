@@ -3,11 +3,18 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main>
-      <h1>Workout Tracker</h1>
+    <div className="home-hero">
+      <p className="eyebrow">Track. Log. Progress.</p>
+      <h1>
+        Workout<br />
+        <span className="accent">Tracker</span>
+      </h1>
       <p>
-        <Link href="/workouts">Bekijk alle workouts</Link>
+        Log je sets, reps en gewichten. Simpel, snel, zonder rompslomp.
       </p>
-    </main>
+      <Link href="/workouts" className="btn-cta">
+        Bekijk workouts →
+      </Link>
+    </div>
   );
 }

@@ -16,15 +16,19 @@ export default function DeleteButton({ id }) {
     });
 
     if (res.ok) {
-      router.push('/workouts'); // Stuur terug naar overzicht
+      router.push('/workouts');
     } else {
-      setDeleting(false); // Fout — zet knop terug
+      setDeleting(false);
     }
   }
 
   return (
-    <button onClick={handleDelete} disabled={deleting} style={{ color: 'red' }}>
-      {deleting ? 'Verwijderen...' : 'Verwijder Workout'}
+    <button
+      onClick={handleDelete}
+      disabled={deleting}
+      className="btn-danger"
+    >
+      {deleting ? 'Verwijderen...' : 'Workout verwijderen'}
     </button>
   );
 }

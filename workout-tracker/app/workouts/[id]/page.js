@@ -9,7 +9,7 @@ async function getWorkout(id) {
   });
 
   if (res.status === 404) {
-    notFound(); // Stopt de render en toont app/not-found.js
+    notFound();
   }
 
   if (!res.ok) {
@@ -24,15 +24,39 @@ export default async function WorkoutDetailPage({ params }) {
   const workout = await getWorkout(id);
 
   return (
-    <main>
-      <Link href="/workouts">← Terug naar overzicht</Link>
+    <>
+      <Link href="/workouts" className="detail-back">
+        ← Terug naar overzicht
+      </Link>
 
       <h1>{workout.title}</h1>
-      <p>Reps: {workout.reps}</p>
-      <p>Gewicht: {workout.load}kg</p>
-      <p>Aangemaakt: {new Date(workout.createdAt).toLocaleDateString('nl-NL')}</p>
+
+      <div className="detail-stats">
+        <div className="detail-stat">
+          <div className="detail-stat-label">Reps</div>
+          <div className="detail-stat-value">{workout.reps}</div>
+          <div className="detail-stat-unit">herhalingen</div>
+        </div>
+        <div className="detail-stat">
+          <div className="detail-stat-label">Gewicht</div>
+          <div className="detail-stat-value">{workout.load}</div>
+          <div className="detail-stat-unit">kilogram</div>
+        </div>
+        <div className="detail-stat">
+          <div className="detail-stat-label">Datum</div>
+          <div className="detail-stat-value" style={{ fontSize: '1.1rem', paddingTop: '0.5rem' }}>
+            {new Date(workout.createdAt).toLocaleDateString('nl-NL', {
+              day: 'numeric',
+              month: 'short',
+            })}
+          </div>
+          <div className="detail-stat-unit">
+            {new Date(workout.createdAt).getFullYear()}
+          </div>
+        </div>
+      </div>
 
       <DeleteButton id={workout._id} />
-    </main>
+    </>
   );
 }
